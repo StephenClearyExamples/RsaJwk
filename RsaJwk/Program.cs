@@ -56,8 +56,8 @@ namespace RsaJwk
                 File.WriteAllText("key.public.json", publicKey);
 
                 Console.WriteLine("Updating encrypt.html...");
-                File.WriteAllText("encrypt.html", File.ReadAllText("encrypt.html").Replace("$$$PUBLIC_KEY$$$", publicKey));
-                OpenBrowser("encrypt.html");
+                File.WriteAllText("encrypttest.html", File.ReadAllText("encrypt.html").Replace("$$$PUBLIC_KEY$$$", publicKey));
+                OpenBrowser("encrypttest.html");
 
                 while (true)
                 {
