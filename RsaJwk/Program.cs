@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -56,7 +57,7 @@ namespace RsaJwk
 
                 Console.WriteLine("Updating encrypt.html...");
                 File.WriteAllText("encrypt.html", File.ReadAllText("encrypt.html").Replace("$$$PUBLIC_KEY$$$", publicKey));
-                Process.Start("cmd", "/C start encrypt.html");
+                OpenBrowser("encrypt.html");
 
                 while (true)
                 {
@@ -81,6 +82,27 @@ namespace RsaJwk
             {
                 Console.WriteLine(ex);
                 Console.ReadKey();
+            }
+        }
+
+        // https://github.com/dotnet/corefx/issues/10361
+        public static void OpenBrowser(string url)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start("cmd", $"/C start {url}");
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+            else
+            {
+                Console.WriteLine($"Please open the {url} file in your browser.");
             }
         }
     }
