@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RsaJwk", "RsaJwk\RsaJwk.csproj", "{F121DAD6-1831-41DA-B4A9-E4CFE1A54C62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F121DAD6-1831-41DA-B4A9-E4CFE1A54C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F121DAD6-1831-41DA-B4A9-E4CFE1A54C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F121DAD6-1831-41DA-B4A9-E4CFE1A54C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F121DAD6-1831-41DA-B4A9-E4CFE1A54C62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E563C60C-8DC6-4A01-B192-C32E97AF61C1}
+	EndGlobalSection
+EndGlobal

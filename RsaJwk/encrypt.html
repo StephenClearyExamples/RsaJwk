@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Encryption test page</title>
+    <script src="base64js.min.js"></script>
+    <script>
+        const jwk = $$$PUBLIC_KEY$$$;
+        const knownAlgorithms = {
+            "RSA-OAEP": { name: "RSA-OAEP", hash: { name: "SHA-1" } },
+            "RSA-OAEP-256": { name: "RSA-OAEP", hash: { name: "SHA-256" } },
+            "RSA-OAEP-384": { name: "RSA-OAEP", hash: { name: "SHA-384" } },
+            "RSA-OAEP-512": { name: "RSA-OAEP", hash: { name: "SHA-512" } }
+        };
+        let encryptionKey;
+        window.crypto.subtle.importKey("jwk", jwk, knownAlgorithms[jwk.alg], false, ["encrypt"]).then(key => {
+            encryptionKey = key;
+            document.getElementById("key").innerText = JSON.stringify(jwk);
+            console.log("Ready to encrypt.");
+        });
+        function encrypt(str) {
+            // Encode string as UTF-8 byte array.
+            const data = new TextEncoder().encode(str);
+
+            // Encrypt byte array.
+            return window.crypto.subtle.encrypt({ name: "RSA-OAEP" }, encryptionKey, data)
+                .then(encrypted => {
+                    const array = new Uint8Array(encrypted);
+                    // Encode as base64 for easy copy/paste.
+                    const text = base64js.fromByteArray(array);
+                    console.log("Encrypted, base64-encoded value:", text);
+                    return text;
+                });
+        }
+
+        function encryptButtonOnClick() {
+            encrypt(document.getElementById("text").value)
+                .then(text => document.getElementById("result").value = text);
+            return false;
+        }
+    </script>
+</head>
+<body>
+    
+    <form onsubmit="return encryptButtonOnClick()">
+        <div>
+            <label for="text">Text to encrypt:</label> <input type="text" id="text" style="width: 20em;" /> <input type="submit" value="Encrypt"/>
+        </div>
+        <div>
+            <label for="result" style="vertical-align: top;">Encrypted, base64-encoded value:</label> <textarea id="result" rows="10" cols="80" readonly="readonly"></textarea>
+        </div>
+    </form>
+    
+    <div>Client-side public key (can only encrypt, not decrypt): <span id="key"></span></div>
+
+</body>
+</html>
